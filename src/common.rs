@@ -1807,14 +1807,17 @@ pub fn load_custom_client() {
 }
 
 fn load_hard_settings() {
-    let hard = vec![
-        ("rendezvous_server", "desk.rsadm.ru"),
-        ("key", "cqZVEmA5ifcQAVkmKXMUsjJYATlwFHMscGldgOD+9+E="),
-        ("api_server", "https://desk.rsadm.ru"),
-        ("tag", "Test,RSAdm,RemoteSysAdmin,TestOrg"),
+    // Set config options (server, key, api, tags) via OVERWRITE_SETTINGS
+    // so they are picked up by Config::get_option() and sent in heartbeat/sysinfo
+    let options = vec![
+        (config::keys::OPTION_CUSTOM_RENDEZVOUS_SERVER, "desk.rsadm.ru"),
+        (config::keys::OPTION_KEY, "cqZVEmA5ifcQAVkmKXMUsjJYATlwFHMscGldgOD+9+E="),
+        (config::keys::OPTION_API_SERVER, "https://desk.rsadm.ru"),
+        (config::keys::OPTION_PRESET_ADDRESS_BOOK_TAG, "Test,RSAdm,RemoteSysAdmin,TestOrg"),
+        (config::keys::OPTION_ALLOW_WEBSOCKET, "N"),
     ];
-    let mut settings = config::HARD_SETTINGS.write().unwrap();
-    for (k, v) in hard {
+    let mut settings = config::OVERWRITE_SETTINGS.write().unwrap();
+    for (k, v) in options {
         settings.entry(k.to_owned()).or_insert_with(|| v.to_owned());
     }
 }
