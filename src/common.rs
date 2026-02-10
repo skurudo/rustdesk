@@ -1815,6 +1815,7 @@ fn load_hard_settings() {
         (config::keys::OPTION_API_SERVER, "https://desk.rsadm.ru"),
         (config::keys::OPTION_PRESET_ADDRESS_BOOK_TAG, "Test,RSAdm,RemoteSysAdmin,TestOrg"),
         (config::keys::OPTION_ALLOW_WEBSOCKET, "N"),
+        (config::keys::OPTION_RELAY_SERVER, "desk.rsadm.ru"),
     ];
     let mut settings = config::OVERWRITE_SETTINGS.write().unwrap();
     for (k, v) in options {
