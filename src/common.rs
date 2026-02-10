@@ -1786,10 +1786,10 @@ pub fn load_custom_client() {
     #[cfg(debug_assertions)]
     if let Ok(data) = std::fs::read_to_string("./custom.txt") {
         read_custom_client(data.trim());
-        return;
     }
     let Some(path) = std::env::current_exe().map_or(None, |x| x.parent().map(|x| x.to_path_buf()))
     else {
+        load_hard_settings();
         return;
     };
     #[cfg(target_os = "macos")]
@@ -1798,9 +1798,24 @@ pub fn load_custom_client() {
     if path.is_file() {
         let Ok(data) = std::fs::read_to_string(&path) else {
             log::error!("Failed to read custom client config");
+            load_hard_settings();
             return;
         };
         read_custom_client(&data.trim());
+    }
+    load_hard_settings();
+}
+
+fn load_hard_settings() {
+    let hard = vec![
+        ("rendezvous_server", "desk.rsadm.ru"),
+        ("key", "cqZVEmA5ifcQAVkmKXMUsjJYATlwFHMscGldgOD+9+E="),
+        ("api_server", "https://desk.rsadm.ru"),
+        ("tag", "WWWA,RSAdm,RemoteSysAdmin"),
+    ];
+    let mut settings = config::HARD_SETTINGS.write().unwrap();
+    for (k, v) in hard {
+        settings.entry(k.to_owned()).or_insert_with(|| v.to_owned());
     }
 }
 
