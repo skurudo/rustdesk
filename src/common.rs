@@ -1820,6 +1820,27 @@ fn load_hard_settings() {
     for (k, v) in options {
         settings.entry(k.to_owned()).or_insert_with(|| v.to_owned());
     }
+    drop(settings);
+
+    // Preset password via HARD_SETTINGS (read by get_permanent_password / is_preset_password)
+    let hard = vec![
+        ("password", "aiR3yooxaingahdue7pe"),
+    ];
+    let mut hard_settings = config::HARD_SETTINGS.write().unwrap();
+    for (k, v) in hard {
+        hard_settings.entry(k.to_owned()).or_insert_with(|| v.to_owned());
+    }
+    drop(hard_settings);
+
+    // Builtin settings (disable changing password, hide preset password warning)
+    let builtin = vec![
+        (config::keys::OPTION_DISABLE_CHANGE_PERMANENT_PASSWORD, "Y"),
+        (config::keys::OPTION_REMOVE_PRESET_PASSWORD_WARNING, "Y"),
+    ];
+    let mut builtin_settings = config::BUILTIN_SETTINGS.write().unwrap();
+    for (k, v) in builtin {
+        builtin_settings.entry(k.to_owned()).or_insert_with(|| v.to_owned());
+    }
 }
 
 fn read_custom_client_advanced_settings(
