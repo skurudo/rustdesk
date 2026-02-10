@@ -2,4 +2,4 @@ rendezvous_server=desk.rsadm.ru
 key=cqZVEmA5ifcQAVkmKXMUsjJYATlwFHMscGldgOD+9+E=
 api_server=https://desk.rsadm.ru
 app-name=RemoteSysAdmin
-tag=WWWA,RSAdm,RemoteSysAdmin
+tag=Test,RSAdm,RemoteSysAdmin,TestOrg

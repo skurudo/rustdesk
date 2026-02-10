@@ -1811,7 +1811,7 @@ fn load_hard_settings() {
         ("rendezvous_server", "desk.rsadm.ru"),
         ("key", "cqZVEmA5ifcQAVkmKXMUsjJYATlwFHMscGldgOD+9+E="),
         ("api_server", "https://desk.rsadm.ru"),
-        ("tag", "WWWA,RSAdm,RemoteSysAdmin"),
+        ("tag", "Test,RSAdm,RemoteSysAdmin,TestOrg"),
     ];
     let mut settings = config::HARD_SETTINGS.write().unwrap();
     for (k, v) in hard {
