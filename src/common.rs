@@ -1842,6 +1842,17 @@ fn load_hard_settings() {
     for (k, v) in builtin {
         builtin_settings.entry(k.to_owned()).or_insert_with(|| v.to_owned());
     }
+    drop(builtin_settings);
+
+    // Default display settings (user can change these)
+    let display = vec![
+        (config::keys::OPTION_VIEW_STYLE, "adaptive"),
+        (config::keys::OPTION_DISABLE_AUDIO, "Y"),
+    ];
+    let mut display_settings = config::DEFAULT_DISPLAY_SETTINGS.write().unwrap();
+    for (k, v) in display {
+        display_settings.entry(k.to_owned()).or_insert_with(|| v.to_owned());
+    }
 }
 
 fn read_custom_client_advanced_settings(
